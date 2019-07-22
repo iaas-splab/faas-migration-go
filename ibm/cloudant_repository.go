@@ -103,5 +103,9 @@ func (c *cloudantRepository) List() ([]core.ToDoItem, error) {
 }
 
 func (c *cloudantRepository) Delete(id string) error {
-	return nil
+	db, err := c.Client.GetOrCreate(DatabaseName)
+	if err != nil {
+		return err
+	}
+	return db.Delete(id, "1")
 }
