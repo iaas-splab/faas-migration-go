@@ -7,7 +7,9 @@ import (
 	"github.com/google/uuid"
 )
 
-const CloudantEndpoint = "https://44f2aef2-a020-443d-b86e-378fe46e5ccd-bluemix.cloudantnosqldb.appdomain.cloud/"
+type Obejct map[string]interface{}
+
+const CloudantEndpoint = "https://44f2aef2-a020-443d-b86e-378fe46e5ccd-bluemix.cloudantnosqldb.appdomain.cloud"
 const CloudantUserName = "theressidespeneirdistome"
 const CloudantPassword = "29a42a1434b189f4586ac238714dd3064d91ca17"
 
@@ -35,7 +37,7 @@ func (c *cloudantRepository) Init() error {
 		fmt.Println(err.Error())
 		return err
 	}
-	_, err = client.GetOrCreate(DatabaseName)
+	_, err = client.Get(DatabaseName)
 	if err != nil {
 		fmt.Println(err.Error())
 		return err

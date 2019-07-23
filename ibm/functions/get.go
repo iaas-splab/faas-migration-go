@@ -19,10 +19,21 @@ func main() {
 
 	item, err := core.Get(obj,repo)
 	if err != nil {
-		fmt.Printf("Execution Failed: Error %s\n",err.Error())
+		fmt.Printf("Execution Failed: Error %s\n", err.Error())
+		obj, _ := json.Marshal(ibm.Obejct{
+			"statuscode": 500,
+			"body":       fmt.Sprintf("Server Error: %s", err.Error()),
+		})
+		fmt.Println(string(obj))
 		return
 	}
-	res, _ := json.Marshal(item)
+	res, _ := json.Marshal(ibm.Obejct{
+		"statuscode": 200,
+		"headers": ibm.Obejct{
+			"Content-Type": "application/json",
+		},
+		"body": item,
+	})
 
 	fmt.Println(string(res))
 }
