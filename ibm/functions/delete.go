@@ -9,15 +9,17 @@ import (
 )
 
 func main() {
+	fmt.Println(os.Args[1])
 	arg := os.Args[1]
 
 	fmt.Println(arg)
 	var obj core.IDRequest
 	json.Unmarshal([]byte(arg), &obj)
+	var pobj ibm.Obejct
+	json.Unmarshal([]byte(arg), &pobj)
+	repo := ibm.NewCloudantRepository(pobj)
 
-	repo := ibm.NewCloudantRepository()
-
-	err := core.Delete(obj,repo)
+	err := core.Delete(obj, repo)
 	if err != nil {
 		fmt.Printf("Execution Failed: Error %s\n", err.Error())
 		obj, _ := json.Marshal(ibm.Obejct{

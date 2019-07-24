@@ -5,10 +5,14 @@ import (
 	"fmt"
 	"github.com/c-mueller/faas-migration-go/core"
 	"github.com/c-mueller/faas-migration-go/ibm"
+	"os"
 )
 
 func main() {
-	repo := ibm.NewCloudantRepository()
+	fmt.Println(os.Args[1])
+	var pobj ibm.Obejct
+	json.Unmarshal([]byte(os.Args[1]), &pobj)
+	repo := ibm.NewCloudantRepository(pobj)
 
 	items, err := core.List(repo)
 	if err != nil {

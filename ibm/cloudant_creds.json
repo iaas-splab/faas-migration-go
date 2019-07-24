@@ -1,0 +1,6 @@
+{
+  "cloudant_host": "https://7105f0f8-1dcd-464f-9e75-5c8b6d46a30d-bluemix:fae288c98f35e99752a9e3179f0a04cc0b84d860c4002b75b62d0b45337b4660@7105f0f8-1dcd-464f-9e75-5c8b6d46a30d-bluemix.cloudantnosqldb.appdomain.cloud",
+  "cloudant_username": "7105f0f8-1dcd-464f-9e75-5c8b6d46a30d-bluemix",
+  "cloudant_password": "fae288c98f35e99752a9e3179f0a04cc0b84d860c4002b75b62d0b45337b4660",
+  "cloudant_db_name": "items"
+}

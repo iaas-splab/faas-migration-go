@@ -1,0 +1,79 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: ToDo API
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+  - text/html
+  - text/plain
+  - image/svg+xml
+paths:
+  /get:
+    get:
+      operationId: getItem
+      x-openwhisk:
+        action: todo-get
+      responses:
+        '200':
+          description: A successful invocation response
+  /lst:
+    get:
+      operationId: listItems
+      x-openwhisk:
+        action: todo-lst
+      responses:
+        '200':
+          description: A successful invocation response
+  /put:
+    post:
+      operationId: putItem
+      x-openwhisk:
+        action: todo-put
+      responses:
+        '200':
+          description: A successful invocation response
+      parameters:
+        - name: body
+          in: body
+          description: Request body
+          required: false
+          schema:
+            type: object
+  /del:
+    post:
+      operationId: deleteItem
+      x-openwhisk:
+        action: todo-del
+      responses:
+        '200':
+          description: A successful invocation response
+      parameters:
+        - name: body
+          in: body
+          description: Request body
+          required: false
+          schema:
+            type: object
+  /done:
+    post:
+      operationId: markAsDone
+      x-openwhisk:
+        action: todo-done
+      responses:
+        '200':
+          description: A successful invocation response
+      parameters:
+        - name: body
+          in: body
+          description: Request body
+          required: false
+          schema:
+            type: object
+x-ibm-configuration:
+  cors:
+    enabled: true
+basePath: /api

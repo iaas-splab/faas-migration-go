@@ -8,13 +8,16 @@ import (
 	"os"
 )
 func main() {
+	fmt.Println(os.Args[1])
 	arg := os.Args[1]
 
 	fmt.Println(arg)
 	var obj core.PutRequest
 	json.Unmarshal([]byte(arg), &obj)
 
-	repo := ibm.NewCloudantRepository()
+	var pobj ibm.Obejct
+	json.Unmarshal([]byte(arg), &pobj)
+	repo := ibm.NewCloudantRepository(pobj)
 
 	item, err := core.Put(obj, repo)
 	if err != nil {

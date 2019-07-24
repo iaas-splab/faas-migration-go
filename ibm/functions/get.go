@@ -14,8 +14,9 @@ func main() {
 	fmt.Println(arg)
 	var obj core.IDRequest
 	json.Unmarshal([]byte(arg), &obj)
-
-	repo := ibm.NewCloudantRepository()
+	var pobj ibm.Obejct
+	json.Unmarshal([]byte(arg), &pobj)
+	repo := ibm.NewCloudantRepository(pobj)
 
 	item, err := core.Get(obj,repo)
 	if err != nil {
