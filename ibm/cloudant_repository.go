@@ -83,8 +83,12 @@ func (i cloudantItem) toToDoItem() core.ToDoItem {
 }
 
 func (c *cloudantRepository) Put(item *core.ToDoItem) (*core.ToDoItem, error) {
+	id := item.ID
+	rev := "2-xxxxxxx"
+
 	e := cloudantItem{
-		Rev:                "2-xxxxxxx",
+		Id:                 id,
+		Rev:                rev,
 		Description:        item.Description,
 		Title:              item.Title,
 		Done:               item.Done,
@@ -97,6 +101,16 @@ func (c *cloudantRepository) Put(item *core.ToDoItem) (*core.ToDoItem, error) {
 		return nil, err
 	}
 
+	if len(id) != 0 {
+		var el cloudantItem
+
+		err = db.Get(id, cloudant.NewGetQuery().Attachments().Latest().Build(), &el)
+		if err != nil {
+			return nil, err
+		}
+
+		e.Rev = el.Rev
+	}
 	meta, err := db.Set(&e)
 	if err != nil {
 		return nil, err
@@ -153,5 +167,12 @@ func (c *cloudantRepository) Delete(id string) error {
 	if err != nil {
 		return err
 	}
-	return db.Delete(id, "2-xxxxxxx")
+	var el cloudantItem
+
+	err = db.Get(id, cloudant.NewGetQuery().Attachments().Latest().Build(), &el)
+	if err != nil {
+		return err
+	}
+
+	return db.Delete(id, el.Rev)
 }

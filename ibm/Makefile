@@ -1,10 +1,20 @@
+########################################
+### CONFIGURATION                    ###
+########################################
+
+# Define the name of the Cloudant Database
 CLOUDANT_INSTANCE_NAME := todo-cloudant-db
+# Define the name of the cloudant access key
 CLOUDANT_ACCESS_KEY_NAME := access-key
+# Set the instance plan type
 CLOUDANT_INSTANCE_PLAN := Lite
 
+# Modify go Compilation Flags
 GOFLAGS := -v
 
-.PHONY: build clean deploy
+########################################
+### MAKEFILE                         ###
+########################################
 
 init:
 	ibmcloud service create cloudantNoSQLDB $(CLOUDANT_INSTANCE_PLAN) $(CLOUDANT_INSTANCE_NAME) || true
@@ -58,8 +68,6 @@ create_database:
 
 delete_database:
 	ibmcloud fn action invoke Bluemix_$(CLOUDANT_INSTANCE_NAME)_$(CLOUDANT_ACCESS_KEY_NAME)/delete-database -r -p dbname items || true
-
-deploy: deploy_actions deploy_api create_database
 
 update: clean package
 	cd bin/put && ibmcloud fn action update todo-put --native exec.zip -a final true -P ../../cloudant_creds.json

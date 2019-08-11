@@ -1,6 +1,6 @@
 {
-  "cloudant_host": "https://7105f0f8-1dcd-464f-9e75-5c8b6d46a30d-bluemix:fae288c98f35e99752a9e3179f0a04cc0b84d860c4002b75b62d0b45337b4660@7105f0f8-1dcd-464f-9e75-5c8b6d46a30d-bluemix.cloudantnosqldb.appdomain.cloud",
-  "cloudant_username": "7105f0f8-1dcd-464f-9e75-5c8b6d46a30d-bluemix",
-  "cloudant_password": "fae288c98f35e99752a9e3179f0a04cc0b84d860c4002b75b62d0b45337b4660",
+  "cloudant_host": "https://b8bc9a5d-13dd-4bbb-8ce5-7a37ce558c11-bluemix:bf4bf515c58adcdd11455b9e6ce5520aca3eec459ef95e0e06ce73511399960d@b8bc9a5d-13dd-4bbb-8ce5-7a37ce558c11-bluemix.cloudantnosqldb.appdomain.cloud",
+  "cloudant_username": "b8bc9a5d-13dd-4bbb-8ce5-7a37ce558c11-bluemix",
+  "cloudant_password": "bf4bf515c58adcdd11455b9e6ce5520aca3eec459ef95e0e06ce73511399960d",
   "cloudant_db_name": "items"
 }
