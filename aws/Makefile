@@ -1,5 +1,3 @@
-.PHONY: build clean deploy
-
 build:
 	env GOOS=linux GO111MODULES=on go build -v -a -ldflags="-s -w" -o bin/put put/main.go
 	env GOOS=linux GO111MODULES=on go build -v -a -ldflags="-s -w" -o bin/get get/main.go
@@ -12,3 +10,6 @@ clean:
 
 deploy: clean build
 	sls deploy --verbose
+
+destroy:
+	sls remove --verbose

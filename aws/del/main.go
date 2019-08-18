@@ -31,7 +31,7 @@ func Handler(ctx context.Context, req aws.Request) (aws.Response, error) {
 	if err != nil {
 		fmt.Printf("Delete Failed %q", err.Error())
 		return aws.Response{
-			StatusCode: 500,
+			StatusCode: 404,
 		}, err
 	}
 
