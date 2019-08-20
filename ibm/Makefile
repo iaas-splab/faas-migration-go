@@ -18,7 +18,11 @@ GOFLAGS := -v
 
 init:
 	ibmcloud service create cloudantNoSQLDB $(CLOUDANT_INSTANCE_PLAN) $(CLOUDANT_INSTANCE_NAME) || true
+	# Waiting 120 Seconds to make sure the Cloudant Instance is deployed
+	sleep 120
 	ibmcloud service key-create $(CLOUDANT_INSTANCE_NAME) $(CLOUDANT_ACCESS_KEY_NAME) || true
+	ibmcloud fn package refresh
+	sleep 10
 
 build_creds: PASSWORD := `cat bin/raw_creds.json | jq -r '.password'`
 build_creds: USERNAME := `cat bin/raw_creds.json | jq -r '.username'`
@@ -46,9 +50,9 @@ package: build
 	cd bin/done && zip exec.zip exec
 
 clean:
-	rm -rvf ./bin
+	rm -rvf ./buildin
 
-deploy_actions: clean package build_creds
+deploy_actions: clean package
 	cd bin/put && ibmcloud fn action create todo-put --web true --native exec.zip -a final true -P ../../cloudant_creds.json
 	cd bin/get && ibmcloud fn action create todo-get --web true --native exec.zip -a final true -P ../../cloudant_creds.json
 	cd bin/del && ibmcloud fn action create todo-del --web true --native exec.zip -a final true -P ../../cloudant_creds.json
@@ -69,12 +73,18 @@ create_database:
 delete_database:
 	ibmcloud fn action invoke Bluemix_$(CLOUDANT_INSTANCE_NAME)_$(CLOUDANT_ACCESS_KEY_NAME)/delete-database -r -p dbname items || true
 
+delete_api:
+	ibmcloud fn api delete /todo
+
+update_api: delete_api deploy_api
+
 update: clean package
-	cd bin/put && ibmcloud fn action update todo-put --native exec.zip -a final true -P ../../cloudant_creds.json
-	cd bin/get && ibmcloud fn action update todo-get --native exec.zip -a final true -P ../../cloudant_creds.json
-	cd bin/del && ibmcloud fn action update todo-del --native exec.zip -a final true -P ../../cloudant_creds.json
-	cd bin/lst && ibmcloud fn action update todo-lst --native exec.zip -a final true -P ../../cloudant_creds.json
-	cd bin/done && ibmcloud fn action update todo-done --native exec.zip -a final true -P ../../cloudant_creds.json
+	cd bin/put && ibmcloud fn action update todo-put --native exec.zip --web true -a final true -P ../../cloudant_creds.json
+	cd bin/get && ibmcloud fn action update todo-get --native exec.zip --web true -a final true -P ../../cloudant_creds.json
+	cd bin/del && ibmcloud fn action update todo-del --native exec.zip --web true -a final true -P ../../cloudant_creds.json
+	cd bin/lst && ibmcloud fn action update todo-lst --native exec.zip --web true -a final true -P ../../cloudant_creds.json
+	cd bin/done && ibmcloud fn action update todo-done --native exec.zip --web true -a final true -P ../../cloudant_creds.json
+update: update_api
 
 destroy:
 	ibmcloud fn action delete todo-put

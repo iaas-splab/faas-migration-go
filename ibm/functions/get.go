@@ -18,12 +18,18 @@ func main() {
 	json.Unmarshal([]byte(arg), &pobj)
 	repo := ibm.NewCloudantRepository(pobj)
 
-	item, err := core.Get(obj,repo)
+	item, err := core.Get(obj, repo)
 	if err != nil {
 		fmt.Printf("Execution Failed: Error %s\n", err.Error())
 		obj, _ := json.Marshal(ibm.Obejct{
 			"statuscode": 404,
-			"body":       fmt.Sprintf("Server Error: %s", err.Error()),
+			"headers": ibm.Obejct{
+				"Content-Type": "application/json",
+			},
+			"body": ibm.Obejct{
+				"error": fmt.Sprintf("Server Error: %s", err.Error()),
+				"ok":    false,
+			},
 		})
 		fmt.Println(string(obj))
 		return

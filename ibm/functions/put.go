@@ -24,7 +24,13 @@ func main() {
 		fmt.Printf("Execution Failed: Error %s\n", err.Error())
 		obj, _ := json.Marshal(ibm.Obejct{
 			"statuscode": 500,
-			"body":       fmt.Sprintf("Server Error: %s", err.Error()),
+			"headers": ibm.Obejct{
+				"Content-Type": "application/json",
+			},
+			"body": ibm.Obejct{
+				"error": fmt.Sprintf("Server Error: %s", err.Error()),
+				"ok":    false,
+			},
 		})
 		fmt.Println(string(obj))
 		return
