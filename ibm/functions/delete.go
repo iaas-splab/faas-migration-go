@@ -15,6 +15,9 @@ func main() {
 	fmt.Println(arg)
 	var obj core.IDRequest
 	json.Unmarshal([]byte(arg), &obj)
+	if len(obj.ID) == 0 {
+		ibm.SendError(fmt.Sprintf("An ID has to be defined!"), 400)
+	}
 	var pobj ibm.Obejct
 	json.Unmarshal([]byte(arg), &pobj)
 	repo := ibm.NewCloudantRepository(pobj)
@@ -22,21 +25,10 @@ func main() {
 	err := core.Delete(obj, repo)
 	if err != nil {
 		fmt.Printf("Execution Failed: Error %s\n", err.Error())
-		obj, _ := json.Marshal(ibm.Obejct{
-			"statuscode": 404,
-			"headers": ibm.Obejct{
-				"Content-Type": "application/json",
-			},
-			"body": ibm.Obejct{
-				"error": fmt.Sprintf("Server Error: %s", err.Error()),
-				"ok":    false,
-			},
-		})
-		fmt.Println(string(obj))
-		return
+		ibm.SendError(fmt.Sprintf("Server Error: %s", err.Error()), 404)
 	}
 	res, _ := json.Marshal(ibm.Obejct{
-		"statuscode": 200,
+		"statusCode": 200,
 		"headers": ibm.Obejct{
 			"Content-Type": "application/json",
 		},

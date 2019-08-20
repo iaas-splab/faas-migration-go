@@ -133,6 +133,9 @@ func (c *cloudantRepository) Get(id string) (*core.ToDoItem, error) {
 	if err != nil {
 		return nil, err
 	}
+	if len(e.Id) == 0 {
+		return nil, fmt.Errorf("Returned ID is Zero!")
+	}
 	fmt.Printf("Got ID %s\n", e.Id)
 	i := e.toToDoItem()
 	return &i, nil

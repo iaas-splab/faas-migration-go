@@ -7,11 +7,17 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/c-mueller/faas-migration-go/aws"
 	"github.com/c-mueller/faas-migration-go/core"
+	"github.com/c-mueller/faas-migration-go/ibm"
 )
 
 func Handler(ctx context.Context, request aws.Request) (aws.Response, error) {
-	var elem core.PutRequest
-	err := json.Unmarshal([]byte(request.Body), &elem)
+	var obj core.PutRequest
+	err := json.Unmarshal([]byte(request.Body), &obj)
+	if len(obj.Description) == 0 || len(obj.Title) == 0 {
+		return aws.Response{
+			StatusCode: 400,
+		}, err
+	}
 	if err != nil {
 		fmt.Printf("Put Failed %q", err.Error())
 		return aws.Response{
@@ -21,7 +27,7 @@ func Handler(ctx context.Context, request aws.Request) (aws.Response, error) {
 
 	r := aws.NewDynamoRepo()
 
-	res, err := core.Put(elem, r)
+	res, err := core.Put(obj, r)
 	if err != nil {
 		fmt.Printf("Put Failed %q", err.Error())
 		return aws.Response{

@@ -23,6 +23,8 @@ make deploy
 
 This will also build the functions. Making the execution of `make build` beforehand uneccessary.
 
+The endpoints are displayed once the deployment is done.
+
 ## Destroying / Removing
 
 To destroy/remove the Deployment run:

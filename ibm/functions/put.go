@@ -14,6 +14,9 @@ func main() {
 	fmt.Println(arg)
 	var obj core.PutRequest
 	json.Unmarshal([]byte(arg), &obj)
+	if len(obj.Description) == 0 || len(obj.Title) == 0 {
+		ibm.SendError("Title and Description are required!", 400)
+	}
 
 	var pobj ibm.Obejct
 	json.Unmarshal([]byte(arg), &pobj)
@@ -22,21 +25,10 @@ func main() {
 	item, err := core.Put(obj, repo)
 	if err != nil {
 		fmt.Printf("Execution Failed: Error %s\n", err.Error())
-		obj, _ := json.Marshal(ibm.Obejct{
-			"statuscode": 500,
-			"headers": ibm.Obejct{
-				"Content-Type": "application/json",
-			},
-			"body": ibm.Obejct{
-				"error": fmt.Sprintf("Server Error: %s", err.Error()),
-				"ok":    false,
-			},
-		})
-		fmt.Println(string(obj))
-		return
+		ibm.SendError(fmt.Sprintf("Server Error: %s", err.Error()), 500)
 	}
 	res, _ := json.Marshal(ibm.Obejct{
-		"statuscode": 200,
+		"statusCode": 200,
 		"headers": ibm.Obejct{
 			"Content-Type": "application/json",
 		},
