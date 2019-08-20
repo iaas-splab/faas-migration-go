@@ -23,7 +23,7 @@ func main() {
 	if err != nil {
 		fmt.Printf("Execution Failed: Error %s\n", err.Error())
 		obj, _ := json.Marshal(ibm.Obejct{
-			"statuscode": 500,
+			"statuscode": 404,
 			"body":       fmt.Sprintf("Server Error: %s", err.Error()),
 		})
 		fmt.Println(string(obj))
