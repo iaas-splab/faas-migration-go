@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/c-mueller/faas-migration-go/core"
-	"github.com/c-mueller/faas-migration-go/ibm"
+	"github.com/iaas-splab/faas-migration-go/core"
+	"github.com/iaas-splab/faas-migration-go/ibm"
 	"os"
 )
 

@@ -3,7 +3,7 @@ package aws
 import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/c-mueller/faas-migration-go/core"
+	"github.com/iaas-splab/faas-migration-go/core"
 	"github.com/google/uuid"
 	"github.com/guregu/dynamo"
 	"os"

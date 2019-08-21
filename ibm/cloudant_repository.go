@@ -3,8 +3,8 @@ package ibm
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/c-mueller/faas-migration-go/core"
 	"github.com/cloudant-labs/go-cloudant"
+	"github.com/iaas-splab/faas-migration-go/core"
 )
 
 type Obejct map[string]interface{}
