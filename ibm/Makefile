@@ -50,7 +50,7 @@ package: build
 	cd bin/done && zip exec.zip exec
 
 clean:
-	rm -rvf ./buildin
+	rm -rvf ./bin
 
 deploy_actions: clean package
 	cd bin/put && ibmcloud fn action create todo-put --web true --native exec.zip -a final true -P ../../cloudant_creds.json

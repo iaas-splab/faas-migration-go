@@ -2,21 +2,21 @@
 
 This repository contains all Go based implementations described in my Bachelor Thesis. These being the implementations for AWS Lambda and IBM Cloud Functions of the ToDo API use case. 
 
-Apart from the regular requirements for the deployment on these Cloud Providers described in the [Main Code Repository](https://github.com/c-mueller/faas-migration). These Implementations also need the Go SDK with at least version 1.11 or newer to be built.
+Apart from the regular requirements for the deployment on these Cloud Providers described in the [Main Code Repository](https://github.com/iaas-splab/faas-migration). These Implementations also need the Go SDK with at least version 1.11 or newer to be built.
 
 ## Getting the source code
 
 To download the source code just run the following command:
 ```
-go get -d github.com/c-mueller/fass-migration-go\...
+go get -d github.com/iaas-pblab/fass-migration-go/...
 ```
 
 ## Directories
 
 This repository is grouped into three subdirectories:
-- aws: Contains the AWS Lambda based implementation
-- ibm: Contains the IBM Cloud Functions based implementation
-- core: Contains a vendor unspecific and generic implementation of the functions behaviour
+- `aws`: Contains the AWS Lambda based implementation
+- `ibm`: Contains the IBM Cloud Functions based implementation
+- `core`: Contains a vendor unspecific and generic implementation of the functions behaviour
 
 ## Deploying
 

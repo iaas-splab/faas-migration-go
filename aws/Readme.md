@@ -21,7 +21,7 @@ To deploy them just run:
 make deploy
 ```
 
-This will also build the functions. Making the execution of `make build` beforehand uneccessary.
+This will also build the functions. Making the execution of `make build` beforehand unnecessary.
 
 The endpoints are displayed once the deployment is done.
 
