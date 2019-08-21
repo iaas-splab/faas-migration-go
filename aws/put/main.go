@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/c-mueller/faas-migration-go/aws"
 	"github.com/c-mueller/faas-migration-go/core"
-	"github.com/c-mueller/faas-migration-go/ibm"
 )
 
 func Handler(ctx context.Context, request aws.Request) (aws.Response, error) {
